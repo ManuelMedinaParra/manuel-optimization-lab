@@ -1,0 +1,18 @@
+# Resolución por fuerza bruta de un problema lineal entero
+best_val = 0.0
+best_x1, best_x2 = 0, 0
+
+# Buscar soluciones enteras en un rango
+for x1 in range(0, 10):
+    for x2 in range(0, 10):
+        if 2*x1 + 3*x2 <= 12 and -x1 + x2 <= 3:
+            z = 3*x1 + 5*x2
+            if z > best_val:
+                best_val = z
+                best_x1 = x1
+                best_x2 = x2
+
+print("Mejor solución encontrada:")
+print("x1 =", best_x1)
+print("x2 =", best_x2)
+print("Valor óptimo z =", best_val)
