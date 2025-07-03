@@ -1,1 +1,117 @@
-<h1>Bienvenido a Manuel Optimization Lab</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Manuel Optimization Lab</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f9; }
+  header { background: #004085; color: white; padding: 1rem; }
+  nav button {
+    background: transparent; border: none; color: white; font-size: 1.1rem;
+    margin-right: 1rem; cursor: pointer; padding: 0.3rem 0.7rem;
+  }
+  nav button.active, nav button:hover { background: #002752; border-radius: 4px; }
+  section { padding: 1rem 2rem; display: none; }
+  section.active { display: block; }
+  h1 { color: #004085; }
+  .download-btn {
+    background: #28a745; border: none; padding: 0.7rem 1.5rem; color: white;
+    font-weight: bold; font-size: 1.1rem; border-radius: 5px; cursor: pointer;
+  }
+  .download-btn:hover { background: #218838; }
+  footer { text-align: center; padding: 1rem; font-size: 0.9rem; color: #666; margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Manuel Optimization Lab</h1>
+  <nav>
+    <button id="btnInicio" class="active" onclick="showSection('inicio')">Inicio</button>
+    <button id="btnProgreso" onclick="showSection('progreso')">Progreso</button>
+    <button id="btnDescargas" onclick="showSection('descargas')">Descargas</button>
+  </nav>
+</header>
+
+<main>
+  <section id="inicio" class="active">
+    <h2>Bienvenido</h2>
+    <p>Este es tu curso personalizado de Optimización con MATLAB y Phoenix Code.</p>
+    <p>Aquí aprenderás desde conceptos básicos hasta avanzados, con ejemplos prácticos aplicados al mundo real.</p>
+  </section>
+
+  <section id="progreso">
+    <h2>Seguimiento de Progreso</h2>
+    <p>Aquí podrás ver las clases que has completado y las tareas pendientes.</p>
+    <ul id="listaProgreso">
+      <li>Clase 1: Introducción y Primer Modelo — <strong>Pendiente</strong></li>
+      <!-- Más items se añadirán con JS -->
+    </ul>
+    <button onclick="marcarCompleto(1)">Marcar Clase 1 como completada</button>
+  </section>
+
+  <section id="descargas">
+    <h2>Descargar Materiales</h2>
+    <p>Descarga todos los archivos del curso en un solo paquete ZIP:</p>
+    <button class="download-btn" onclick="descargarZIP()">📥 Descargar todo</button>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Manuel Medina Parra - Curso de Optimización
+</footer>
+
+<script>
+  function showSection(id) {
+    // Ocultar todas las secciones
+    document.querySelectorAll('main section').forEach(sec => {
+      sec.classList.remove('active');
+    });
+    // Mostrar la sección solicitada
+    document.getElementById(id).classList.add('active');
+
+    // Actualizar botón activo
+    document.querySelectorAll('nav button').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.getElementById('btn' + capitalize(id)).classList.add('active');
+  }
+
+  function capitalize(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  // Simulación de progreso (guardar en localStorage)
+  function marcarCompleto(claseNum) {
+    const key = `clase_${claseNum}_completada`;
+    localStorage.setItem(key, 'true');
+    actualizarProgreso();
+    alert(`Clase ${claseNum} marcada como completada`);
+  }
+
+  function actualizarProgreso() {
+    const ul = document.getElementById('listaProgreso');
+    ul.innerHTML = '';
+    const totalClases = 5; // Define cuántas clases habrá en total
+    for(let i=1; i<=totalClases; i++) {
+      const key = `clase_${i}_completada`;
+      const estado = localStorage.getItem(key) === 'true' ? 'Completada' : 'Pendiente';
+      const li = document.createElement('li');
+      li.textContent = `Clase ${i} — ${estado}`;
+      ul.appendChild(li);
+    }
+  }
+
+  actualizarProgreso();
+
+  // Función para descargar el ZIP con los materiales
+  function descargarZIP() {
+    // URL del ZIP (pon aquí la URL real de tu ZIP en GitHub o tu servidor)
+    const url = 'https://raw.githubusercontent.com/ManuelMedinaParra/manuel-optimization-lab/main/manuel-optimization-lab.zip';
+    window.open(url, '_blank');
+  }
+</script>
+
+</body>
+</html>
