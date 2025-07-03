@@ -1,0 +1,14 @@
+# Buscar soluciones enteras en un rango
+for x1 in range(0, 100):
+    for x2 in range(0, 100):
+        if 2*x1 + 4*x2 <=100 and 3*x1 + 2*x2 <=90 and -x1 - x2 <=-10 and x2 <=30:
+            z = 6*x1 + 8*x2
+            if z > best_val:
+                best_val = z
+                best_x1 = x1
+                best_x2 = x2
+
+print("Mejor solución encontrada:")
+print("x1 =", best_x1)
+print("x2 =", best_x2)
+print("Valor óptimo z =", best_val)
